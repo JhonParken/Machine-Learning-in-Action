@@ -5,7 +5,6 @@
 # 使用python导入数据
 
 # 导入科学计算包numpy 和 运算符模块
-
 from numpy import *
 import operator
 def createDataSet():
@@ -22,7 +21,6 @@ def createDataSet():
 # dataSet : 用来训练的数据集属性
 # labels: 用来分类的数据集标签
 # k: k-近邻算法的k,表示选取k个有效数
-
 def classify0 (inX, dataSet, labels, k):
     # shape[0], 返回data的行数  0- 按0维变化方向shape[i][]
     dataSetSize = dataSet.shape[0]
@@ -62,8 +60,8 @@ def classify0 (inX, dataSet, labels, k):
 # 2.2.1
 # 准备数据：从文本中解析数据
 # 程序清单2-2
-# 将文本记录转化为Numpy的解析程序
 
+# 将文本记录转化为Numpy的解析程序
 def file2matrix(filename):
     # 打开文件
     fr = open(filename)
@@ -95,7 +93,6 @@ def file2matrix(filename):
 
 # 2.2.3
 # 数据归一化
-
 def autoNorm(dataSet):
     minVals = dataSet.min(0)
     maxVals = dataSet.max(0)
