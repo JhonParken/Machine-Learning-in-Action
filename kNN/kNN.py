@@ -12,6 +12,7 @@ def createDataSet():
     labels = ('A','A','B','B')
     return group,labels
 
+
 # 程序清单2-1
 # k-近邻算法
 
@@ -89,7 +90,6 @@ def file2matrix(filename):
 
 # 2.2.2
 # 分析数据：使用 Matplotlib 创建散点图
-
 
 # 2.2.3
 # 数据归一化
