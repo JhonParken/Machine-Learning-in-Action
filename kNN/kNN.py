@@ -83,6 +83,7 @@ def file2matrix(filename):
         # 填充 returnMat 用切片好的 listFromLines
         returnMat[index, :] = listFromLine[0:3]
         # 将 listFromLines 中的标签输入字典 classLabelVetor 中
+        # 2.2.4 修改 int(listFromLine[-1])
         classLabelVector.append(int(listFromLine[-1]))
         index += 1
     return returnMat, classLabelVector
@@ -93,15 +94,41 @@ def file2matrix(filename):
 
 # 2.2.3
 # 数据归一化
-def autoNorm(dataSet):
-    minVals = dataSet.min(0)
-    maxVals = dataSet.max(0)
+def autoNorm(dataMat):
+    minVals = dataMat.min(0)
+    maxVals = dataMat.max(0)
     ranges = maxVals - minVals
-    normDataSet = zeros(shape(dataSet))
-    m = dataSet.shape[0]
-    normDataSet = dataSet - tile(minVals, (m, 1))
+    normDataSet = zeros(shape(dataMat))
+    m = dataMat.shape[0]
+    normDataSet = dataMat - tile(minVals, (m, 1))
     normDataSet = normDataSet / tile(ranges, (m,1))
     return normDataSet, ranges, minVals
+
+
+# 2.2.4
+# 测试算法： 作为完整程序验证分类器
+# 计算错误率
+
+def datingClassTest():
+    hoRatio = 0.10
+    # 读入数据
+    datingDataMat, datingLabels = file2matrix("D:\Code\PycharmProjects\kNN\datingTestSet2.txt")
+    # 数据归一化
+    normMat, ranges, minVals = autoNorm(datingDataMat)
+    # 返回归一化后矩阵行数
+    m = normMat.shape[0]
+    # 最大错误率
+    numTestVecs = int(m * hoRatio)
+    # 记录错误率
+    errorCount = 0.0
+    for i in range(numTestVecs):
+        classifierResult = classify0(normMat[i, :], normMat[numTestVecs:m, :], datingLabels[numTestVecs:m], 3)
+        print("the classifier came back with: %d, the real answer is : %d" % (classifierResult, datingLabels[i]))
+        if (classifierResult != datingLabels[i]) : errorCount += 0.1
+    print("the total error rate is : %f" % (errorCount / float(numTestVecs)))
+
+
+
 
 
 
