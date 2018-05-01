@@ -122,10 +122,28 @@ def datingClassTest():
     # 记录错误率
     errorCount = 0.0
     for i in range(numTestVecs):
+        # 前 numTestVecs 个数据作为测试集， 后边儿的数据作为 训练集
         classifierResult = classify0(normMat[i, :], normMat[numTestVecs:m, :], datingLabels[numTestVecs:m], 3)
         print("the classifier came back with: %d, the real answer is : %d" % (classifierResult, datingLabels[i]))
-        if (classifierResult != datingLabels[i]) : errorCount += 0.1
+        # 计算错误率
+        if (classifierResult != datingLabels[i] ):
+            errorCount += 0.1
     print("the total error rate is : %f" % (errorCount / float(numTestVecs)))
+
+
+# 程序清单2-5
+# 约会网站预测函数
+
+def classifyPerson():
+    resultList = ["not at all", "in small doses", "in large doses"]
+    percentTats = float(input("percentage of time spent playing video games?"))
+    ffMiles = float(input("frenquent flier miles earend per year?"))
+    iceCream = float(input("liters of ice cream consuned per year?"))
+    datingDataMat, datingLabels = file2matrix("D:\Code\PycharmProjects\kNN\datingTestSet2.txt")
+    normMat, ranges, minVals = autoNorm(datingDataMat)
+    inArr = array([ffMiles, percentTats, iceCream])
+    classifierResult = classify0(inArr, datingDataMat, datingLabels, 3)
+    print("You will probably like this person: ", resultList[classifierResult - 1])
 
 
 
