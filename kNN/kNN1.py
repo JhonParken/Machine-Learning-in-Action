@@ -8,7 +8,7 @@ def createDataSet():
     labels = ("A", "A", "B", "B")
     return group, labels
 
-# kNN 主题函数
+# kNN 主体函数
 def classify0(inX, DataSet, labels, k):
     dataSetSize = DataSet.shape[0]      # 行数
     diffMat = tile(inX, (dataSetSize, 1)) - DataSet   # 差
