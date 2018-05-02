@@ -50,7 +50,7 @@ def classify0 (inX, dataSet, labels, k):
         # sorted(iterable,cmp= None,key = None,reverse = false)
         # iterable 待排序的可迭代类型的容器
         # cmp:用于比较函数；key = operator,itemgetter(1)根据字典的值进行排序
-        # key=operator.itemgetter(1)根据字典的键进行排序
+        # key=operator.itemgetter(1)根据字典的值进行排序
         # reverse = True 降序  or  reverse = False 升序|（默认）
     sortedClassCount = sorted(ClassCount.items(), key=operator.itemgetter(1), reverse=True)
     # 返回要分类的类别
