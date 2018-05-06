@@ -8,7 +8,7 @@ def createDataSet():
     labels = ("A", "A", "B", "B")
     return group, labels
 
-# kNN 主题函数
+# kNN 主体函数
 def classify0(inX, DataSet, labels, k):
     dataSetSize = DataSet.shape[0]      # 行数
     diffMat = tile(inX, (dataSetSize, 1)) - DataSet   # 差
@@ -42,6 +42,30 @@ def file2matrix(filename):
     fr.close()
 
 # 数据归一化
+
+def autoNormm(dataMat):
+    minVals = dataMat.min()
+    maxVals = dataMat.max()
+    ranges = maxVals - minVals
+    normDataSet = zeros(shape(dataMat))
+    m = dataMat.shape[0]
+    normDataSet = dataMat - tile(minVals, (m, 1))
+    normDataSet = dataMat / tile(maxVals, (m, 1))  # tile() 在行方向重复 m 次，在列方向 重复 1 次
+    return normDataSet, ranges, minVals
+
+
+# 分类
+
+def classifyPerson():
+    labelsList = ["not at all", "in small does", "in large does"]
+    percentTats = float(input("percentage of time spent in playing computer games"))
+    ffMiles = float(input("frequent flier miles earend per year"))
+    iceCream = float(input("liters of ice cream consumed per year"))
+    datingDataSet, datingLabels = file2matrix("D:\Code\PycharmProjects\ML in Action\kNN\datingTestSet2.txt")
+    normMat, ranges, minVals = autoNormm(datingDataSet)
+    inArr = array([ffMiles, percentTats, iceCream])
+    ClassifierResult = classify0(inArr, normMat, datingLabels, 3)
+    print("You will probably like the person:" + labelsList[ClassifierResult - 1])
 
 
 
