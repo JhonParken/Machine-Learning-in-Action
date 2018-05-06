@@ -67,6 +67,24 @@ def classifyPerson():
     ClassifierResult = classify0(inArr, normMat, datingLabels, 3)
     print("You will probably like the person:" + labelsList[ClassifierResult - 1])
 
+# 分类器测试代码
+
+def datingClassTest():
+    hoRatio = 0.10
+    datingDataSet, datingLabels = file2matrix("D:\Code\PycharmProjects\ML in Action\kNN\datingTestSet2.txt")
+    normMat, ranges, minVals = autoNormm(datingDataSet)
+    m = normMat.shape[0]
+    numTestVecs = int(hoRatio * m)
+    errorCount = 0.0
+    for i in range(numTestVecs):
+        # list indices must be integers or slices, not tuple
+        classifierResult = classify0(normMat[i, :], normMat[numTestVecs:m, :], datingLabels[numTestVecs:m], 3)
+        print("The classier cmae back %d, the real answer is: %d" % (classifierResult, datingLabels[i]))
+        if classifierResult != datingLabels:
+            errorCount += 1.0
+    print("the total error ratio is %f" % (errorCount / float(numTestVecs)))
 
 
-
+if __name__ == "__main__":
+    datingClassTest()
+    classifyPerson()
